@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.js"></script>
+    <style>
+        v-cloak{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+<div id="app" v-cloak>
+    <ul>
+        <li v-for="(item,index) in arr">
+            <span>{{index+1+'、'}}</span>
+            <span>{{item.str}}</span>
+            <span>{{item.des}}</span>
+            <button v-on:click.stop="del(index)">删除</button>
+        </li>
+        <input type="text" v-model="msg"><button v-on:click="add()">新增</button>
+    </ul>
+</div>
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                arr: [
+                    {id:001,str:"起床",des:"每天第1件事"},
+                    {id:002,str:"吃饭",des:"每天第2件事"},
+                    {id:003,str:"上课",des:"每天第3件事"},
+                    {id:004,str:"睡觉",des:"每天第4件事"}
+                ],
+                num:4,
+                msg:"",
+            },
+            methods:{
+                add:function(){
+                    this.num++;
+                    this.arr.push({str:this.msg,des:"每天第"+this.num+"件事"});
+                },
+                del:function(i){
+                    this.arr.splice(i,1);
+                }
+            }
+        })
+    </script>
+</div>
+</body>
+</html>

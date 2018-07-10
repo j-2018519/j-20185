@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue的基本用法</title>
+    <!--第一步-->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!--第三步-->
+    <div id="app">
+        <!--<p>{{arr[0].str}}</p>-->
+        <p>{{num}}</p>
+        <p>{{'hello'}}</p>
+        <p>{{5+12}}</p>
+        <p v-on:click="res()">{{2>3?'true':'false'}}</p>
+        <p v-on:click="test(name)">{{'你好！'+name}}</p>
+        <ul>
+            <!--item是数组中的每一组数-->
+            <li v-for="(item,index) in arr">
+                <span>{{index+1+'、'}}</span>
+                <span>{{item.str}}</span>
+                <span>{{item.des}}</span>
+                <button @click.stop="del(index)">删除</button>
+            </li>
+        </ul>
+        <input type="text" v-model="msg"><button v-on:click="add()">新增</button>
+    </div>
+    <!--第二步-->
+    <script>
+        //第三步，控制器，数据目前所在位置，创建vue的实例 vue
+        var vm = new Vue({
+            el:"#app",//element 关联视图和控制器
+            data:{
+                arr: [
+                    {id:1,str:"起床",des:"每天第1件事"},
+                    {id:2,str:"吃饭",des:"每天第2件事"},
+                    {id:3,str:"上课",des:"每天第3件事"},
+                    {id:4,str:"睡觉",des:"每天第4件事"}
+                ],
+                num: 4,
+                name:"张三",
+                msg:"",
+            },
+            methods:{
+                // test:function(str){
+                //     alert("hello!"+str);
+                // },
+                // res:function(){
+                //    alert('res')
+                // },
+                // showstr:function(obj){
+                //     alert(obj)
+                // },
+                add:function(){
+                    //msg添加进arr arr.push()
+                    //this==>当前的vue实例  想要使用vue中声明的变量和方法 需要在前+
+                    //console.log(this.arr);
+                    this.num++;
+                    this.arr.push({str:this.msg,des:"每天第"+this.num+"件事"});
+                    this.msg = '';
+                },
+                del:function(i){
+                    this.arr.splice(i,1)
+                }
+            }
+        })
+    </script>
+</body>
+</html>
